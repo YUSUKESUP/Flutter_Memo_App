@@ -9,7 +9,7 @@ class NoteData extends ChangeNotifier {
     Note(id: 1, text: 'Second  Note'),
   ];
 
-  List<Note> getAllNOtes() {
+  List<Note> getAllNotes() {
     return allNotes;
   }
 

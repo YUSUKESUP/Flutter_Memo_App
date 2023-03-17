@@ -17,7 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     void createNewNote() {
       int id =
-          Provider.of<NoteData>(context, listen: false).getAllNOtes().length;
+          Provider.of<NoteData>(context, listen: false).getAllNotes().length;
 
       Note newNote = Note(
         id: id,
@@ -33,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
           MaterialPageRoute(
               builder: (context) => EditNotePage(
                     note: note,
-                    isNewNote: false,
+                    isNewNote: isNewNote,
                   )));
     }
 
@@ -69,9 +69,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   CupertinoListSection.insetGrouped(
                       children: List.generate(
-                    value.getAllNOtes().length,
+                    value.getAllNotes().length,
                     (index) => CupertinoListTile(
-                        title: Text(value.getAllNOtes()[index].text)),
+                        title: Text(value.getAllNotes()[index].text),
+                    onTap: () => goToNotePage(value.getAllNotes()[index], false),
+                    ),
                   )),
                 ],
               ),
