@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:new_memo_app/models/note_data.dart';
 import 'package:provider/provider.dart';
 
 import 'home_page.dart';
 
-void main() {
+void main() async {
+
+  await Hive.initFlutter();
+
+  await Hive.openBox('note_database');
   runApp(const MyApp());
 }
 

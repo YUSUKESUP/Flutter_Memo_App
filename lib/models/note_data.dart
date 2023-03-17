@@ -1,13 +1,18 @@
 import 'dart:ffi';
 
 import 'package:flutter/widgets.dart';
+import 'package:new_memo_app/data/hive_data.dart';
 import 'package:new_memo_app/models/note.dart';
 
 class NoteData extends ChangeNotifier {
-  List<Note> allNotes = [
-    Note(id: 0, text: 'First  Note'),
-    Note(id: 1, text: 'Second  Note'),
-  ];
+
+  final db = HiveDatabase();
+
+  List<Note> allNotes = [];
+
+  void initializeNotes() {
+    allNotes = db.loadNotes();
+  }
 
   List<Note> getAllNotes() {
     return allNotes;

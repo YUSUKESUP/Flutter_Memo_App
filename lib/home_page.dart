@@ -15,6 +15,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<NoteData>(context, listen: false).initializeNotes();
+  }
+
     void createNewNote() {
       int id =
           Provider.of<NoteData>(context, listen: false).getAllNotes().length;
@@ -50,10 +56,10 @@ class _MyHomePageState extends State<MyHomePage> {
               floatingActionButton: FloatingActionButton(
                 onPressed: createNewNote,
                 elevation: 0,
-                backgroundColor: Colors.grey[300],
+                backgroundColor: Colors.black,
                 child: Icon(
                   Icons.add,
-                  color: Colors.grey,
+                  color: Colors.white,
                 ),
               ),
               body: Column(
@@ -67,12 +73,22 @@ class _MyHomePageState extends State<MyHomePage> {
                           TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  CupertinoListSection.insetGrouped(
+
+                  value.getAllNotes().length == 0
+                  ? Padding(
+                    padding: const EdgeInsets.only(top: 50.0),
+                    child: Center(child: Text('Nothing here..',style: TextStyle(color: Colors.grey[400]),)),
+                  )
+                  : CupertinoListSection.insetGrouped(
                       children: List.generate(
                     value.getAllNotes().length,
                     (index) => CupertinoListTile(
                         title: Text(value.getAllNotes()[index].text),
                     onTap: () => goToNotePage(value.getAllNotes()[index], false),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: ()=>deleteNote(value.getAllNotes()[index]),
+                      ),
                     ),
                   )),
                 ],
